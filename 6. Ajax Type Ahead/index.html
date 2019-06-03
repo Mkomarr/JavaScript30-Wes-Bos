@@ -32,8 +32,7 @@
         <label>Cities and states in USA</label>
         <input type="text" class="search" placeholder="search">
         <ul class="suggestions">
-            <li>Filter for a city</li>
-            <li>or a state</li>
+            <li>For example: Boston</li>
         </ul>
     </form>
     <script>
@@ -60,6 +59,8 @@
 
         function displayMatches() {
             const matchArray = findMatches(this.value, cities);
+
+            if (searchInput.value.length >= 2) {
             const html = matchArray.map(place => {
                 //make highlight
                 const regex = new RegExp(this.value, 'gi');
@@ -73,6 +74,9 @@
                 `;
             }).join('');
             suggestions.innerHTML = html;
+            } else {
+                suggestions.innerHTML = '';
+            }
         };
 
         searchInput.addEventListener('change', displayMatches);
