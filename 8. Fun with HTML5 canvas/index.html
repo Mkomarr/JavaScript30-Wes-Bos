@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML5 Canvas</title>
+    <style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+    }
+    p {
+        margin: 0;
+    }
+    </style>
+</head>
+<body>
+    <p>Try to draw a heart!</p>
+    <canvas id="draw" width="100vw" height="100vh"></canvas>
+    <script>
+        const canvas = document.querySelector('#draw');
+        const ctx = canvas.getContext('2d'); //context
+        canvas.width = window.innerWidth; //rozciaga na cały ekran, uwaga, działa tylko z px, z % nie
+        canvas.height = window.innerHeight;
+        ctx.strokeStyle = '#BADA55';
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.lineWidth = 10;
+
+        let isDrawing = false; //flaga na kliknięcie
+        let lastX = 0;
+        let lastY = 0;
+        let hue = 0;
+        let direction = true;
+
+        function draw(e) {
+            evt.preventDefault();
+            if (!isDrawing) return; //stop func from running when they are not moused down
+            ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+            ctx.beginPath();
+            //start form
+            ctx.moveTo(lastX, lastY);
+            //go to
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+
+            //nadanie koloru
+            hue++;
+            if (hue >= 360) {
+                hue = 0;
+            }
+
+            //zwiększanie i zmniejszanie wielkości linii
+            if (ctx.lineWidth >= 70 || ctx.lineWidth <= 1) {
+                direction = !direction;
+            };
+            if (direction) {
+                ctx.lineWidth++;
+            } else {
+                ctx.lineWidth--;
+            }
+        }
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mousedown', (e) => {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseout', () => isDrawing = false);
+        // mobile
+        canvas.addEventListener('touchstart', draw);
+        canvas.addEventListener('touchend', () => isDrawing = false);
+        canvas.addEventListener('touchmove', (e) => {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        });
+    </script>
+</body>
+</html>
