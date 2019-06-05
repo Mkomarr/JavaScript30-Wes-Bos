@@ -37,7 +37,7 @@
         let direction = true;
 
         function draw(e) {
-            evt.preventDefault();
+            e.preventDefault();
             if (!isDrawing) return; //stop func from running when they are not moused down
             ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
             ctx.beginPath();
