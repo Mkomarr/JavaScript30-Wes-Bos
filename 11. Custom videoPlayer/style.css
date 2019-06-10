@@ -1,0 +1,56 @@
+:root {
+    --base: #ffc600;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.player {
+    max-width: 50rem;
+    height: 100%;
+    margin: 0 auto;
+}
+video {
+    width: 100%;
+    border-radius: 5px;
+}
+.player__controls {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.progress {
+    background-color: gray;
+    z-index: 100;
+    bottom: 5px;
+    border-radius: 5px;
+    position: relative;
+    width: 100%;
+    display: flex;
+}
+.progress__filled {
+    width: 50%;
+    height: 10px;
+    background-color: var(--base);
+    flex: 0;
+    flex-basis: 0%;
+}
+
+/* buttony pod progress barem */
+.player__button {
+    border: 0;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: var(--base);
+}
+
+.player__slider {
+    width: 15%;
+}
+
+.toggle {
+    width: 50px;
+}
