@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slide in on scroll</title>
+    <style>
+        body {
+            width: 100%;
+            background-color: yellow;
+            box-sizing: border-box;
+            margin: 0;
+            font-size: 1.2rem;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.7rem;
+        }
+        body img {
+            width: 100%;
+            max-width: 350px;
+        }
+        .side-wrap {
+            width: 60%;
+            margin: 0 auto;
+            padding: 1rem 2rem 2rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            background-color: white;
+            text-align: justify;
+        }
+        .align-left {
+            float: left;
+            margin-right: 10px;
+        }
+        .align-right {
+            float: right;
+            margin-left: 10px;
+        }
+        .slide-in {
+            opacity: 0;
+            transition: all .5s;
+        }
+        .align-left.slide-in {
+            transform: translateX(-30%) scale(.95);
+        }
+        .align-right.slide-in {
+            transform: translateX(30%) scale(.95);
+        }
+        .slide-in.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+    </style>
+</head>
+<body>
+<div class="side-wrap">
+    <h1>Slide in on scroll</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet ante diam. Donec ultrices accumsan sem ut placerat. Vivamus tempus eget felis vitae eleifend. Donec imperdiet, turpis in gravida faucibus, sapien diam ultrices magna, in gravida dui nisl vitae enim. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vel mattis quam, eu vehicula purus. Sed nec lorem sed est fermentum pharetra et ut leo. Donec eget tellus ipsum. 
+    <img src="https://picsum.photos/400/400?random=1" class="align-right slide-in"> Sed convallis felis ut maximus tempus. Aliquam mauris ex, cursus eget velit ac, viverra imperdiet lacus. Morbi ac pharetra dolor. Maecenas semper, sem ac fringilla posuere, diam tortor mollis enim, quis volutpat ante est eget turpis. Quisque volutpat metus ut risus porta efficitur.</p>
+
+    <p><img src="https://picsum.photos/400/400?random=2" class="align-left slide-in">Mauris at eros nec diam mollis bibendum non vel nunc. Nulla elementum consequat ante quis mattis. Pellentesque bibendum, tortor vitae vulputate placerat, ipsum velit condimentum lectus, at fringilla libero ante quis lorem. Integer purus enim, tempus ut neque a, volutpat commodo dui. Curabitur id lorem nec massa feugiat accumsan vitae ut mi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque viverra auctor nunc, at convallis nisl. Quisque lorem velit, accumsan id arcu sed, mattis sodales sem. Duis eu nunc vestibulum, sodales erat vel, tempor quam.</p>
+
+    <p>Duis convallis lorem non arcu bibendum porttitor. Cras sed molestie ante. Phasellus sed ante vel nibh condimentum molestie. Curabitur posuere rutrum justo at lobortis. Donec malesuada nibh diam, in efficitur sapien condimentum non. Proin ac tortor augue. Curabitur quis velit ullamcorper, suscipit sapien id, porta nunc.</p>
+
+    <p><img src="https://picsum.photos/400/400?random=3" class="align-right slide-in">Vestibulum eget sapien sit amet nisi iaculis finibus. Curabitur luctus pulvinar turpis in luctus. Morbi ornare sed sem a dignissim. Quisque tortor massa, hendrerit ac mauris accumsan, sagittis scelerisque ligula. Sed lacinia ipsum neque, at fringilla mi maximus in. Nullam pharetra diam arcu, in bibendum mi consectetur a. Nulla dignissim consectetur porta. Nulla at dapibus mauris, at semper nibh.</p>
+
+    <p><img src="https://picsum.photos/400/400?random=4" class="align-left slide-in">Sed faucibus venenatis elementum. Suspendisse potenti. Cras vulputate, velit a viverra rutrum, tortor sapien maximus libero, eget consectetur leo augue a purus. Mauris gravida scelerisque mi id hendrerit. Cras eu accumsan massa. Suspendisse potenti. Nam luctus erat in mauris fringilla dictum at ac dolor. Cras malesuada, massa quis tristique dapibus, lectus orci imperdiet ligula, nec scelerisque neque nibh in velit. Suspendisse congue pharetra turpis. Duis condimentum faucibus dignissim. Sed sagittis laoreet lectus. Nullam eleifend, massa id luctus congue, nulla eros faucibus lorem, et facilisis nisl lorem sit amet est. Sed in laoreet nibh. Morbi risus nulla, rutrum in lectus in, accumsan dignissim erat. Suspendisse potenti.</p>
+</div>
+    <script>
+    //function which is limiting checkSlide events
+        function debounce(func, wait = 20, immediate = true) {
+            let timeout;
+            return function() {
+                let context = this,
+                args = arguments;
+                let later = function() {
+                    timeout = null;
+                    if (!immediate) func.apply(context, args);
+                };
+                let callNow = immediate && !timeout;
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+                if (callNow) func.apply(context, args);
+            };
+        };
+    //slide in
+        const sliderImg = document.querySelectorAll('.slide-in');
+        function checkSlide(e) {
+            sliderImg.forEach(sliderImg => {
+                //half way through the img
+                const slideInAt = (window.scrollY + window. innerHeight) - sliderImg.height / 2;
+                //bottom of the image
+                const imgBottom = sliderImg.offsetTop + sliderImg.height;
+                const isHalfShown = slideInAt > sliderImg.offsetTop;
+                const isNotScrolledPast = window.scrollY < imgBottom;
+                if (isHalfShown && isNotScrolledPast) {
+                    sliderImg.classList.add('active');
+                } else {
+                    sliderImg.classList.remove('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', debounce(checkSlide));
+    </script>
+</body>
+</html>
