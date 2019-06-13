@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JS Reference vs copy</title>
+</head>
+<body>
+    <script>
+        //copy with string, numbers, booleans
+            let age = 100;
+            let age2 = age;
+            console.log(age, age2);
+                age = 200;
+            console.log(age, age2);
+
+        //copy with arrays
+            const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+            const team = players;
+            console.log(players, team);
+                const team2 = players.slice(); //copying
+                const team3 = [].concat(players); //copying different way
+                const team4 = [...players]; //spreading in ES6
+                const team5 = Array.from(players);
+        //changing last index in copyied arrays
+                team2[3] = '2' //reference to this index
+                team3[3] = '3' //reference to this index
+                team4[3] = '4' //reference to this index
+                team5[3] = '5' //reference to this index
+            console.log(players, team2, team3, team4, team5);
+
+        //copy with objects
+            const person = {
+                name: 'Blob',
+                age: 80
+            }
+            const captain = person;
+            captain.age = 99; //this is not copy, this is reference to the original one
+            console.log(person.age, captain.age);
+        //how to copy object?
+            const captain2 = Object.assign({}, person, { age: 159 });
+            console.log(person.age, captain.age, captain2.age);
+        //object spread 
+            const captain3 = {...person};
+
+        //be aware - this ways with obects go only 1 lvl deep
+            const blob = {
+                name: 'Fox',
+                age: 100,
+                social: {
+                    tt: '@blobFox',
+                    fb: 'blob.fox'
+                }
+            };
+            console.log(blob);
+        //copying in this way doesn't work
+            const blob2 = Object.assign({}, blob);
+            console.log(blob, blob2);
+            blob2.social.twitter = '@change.blob';
+            console.log(blob.social.twitter, blob2.social.twitter);
+        //copying deeper
+            const blob3 = JSON.parse(JSON.stringify(blob));
+            blob3.social.twitter = '@3.blob';
+            console.log(blob.social.twitter, blob3.social.twitter);
+    </script>
+</body>
+</html>
