@@ -1,0 +1,44 @@
+:root {
+    --border-color: rgb(228, 228, 228);
+}
+
+html {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    line-height: 1.8rem;
+}
+.wrapper {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    margin-top: 2rem;
+}
+
+.plates {
+    list-style: none;
+    width: 70%;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+ul > li {
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.add-items {
+    margin-bottom: 2rem;
+}
+
+/* ----- desktop ----- */
+
+@media (min-width: 800px) and (orientation: landscape) {
+    .wrapper {
+        width: 45%;
+    }
+}
