@@ -37,6 +37,11 @@ ul > li {
     padding: 0 1rem;
 }
 
+form {
+    width: 90%;
+    margin: 0 auto;
+}
+
 
 /* ----- desktop ----- */
 

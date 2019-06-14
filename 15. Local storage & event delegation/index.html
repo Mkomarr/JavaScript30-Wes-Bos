@@ -15,7 +15,7 @@
     </ul>
     <form class="add-items">
         <input type="text" name="item" placeholder="Item name" required>
-        <input type="submit" value="+ Add Item">
+        <input type="submit" value="+ Add Item" class="add-items">
     </form>
     <button>Clear menu</button>
 
@@ -62,13 +62,13 @@
 
         function clearMenu() {
             localStorage.removeItem('items');
-            location.reload();
-            itemsList.innerHTML = '<li>Type in your ingredient</li>'
+            location.reload(true);
+            itemsList.innerHTML = `<li>What's your favourite ingredient?</li>`;
         };
 
         addItems.addEventListener('submit', addItem);
         itemsList.addEventListener('click', toggleDone);
-        populateList(items, itemsList);
+        addItems.addEventListener('submit', populateList(items, itemsList));
         clearBtn.addEventListener('click', clearMenu);
 
     </script>
