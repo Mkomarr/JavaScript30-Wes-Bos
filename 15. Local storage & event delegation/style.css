@@ -5,13 +5,19 @@
 html {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     line-height: 1.8rem;
+    background-color: #fdfbfb;
 }
 .wrapper {
     width: 80%;
-    margin: 0 auto;
+    margin: 2rem auto;
     text-align: center;
     border: 1px solid var(--border-color);
     border-radius: 5px;
+    background-color: white;
+    padding-bottom: 2rem;
+}
+
+h2 {
     margin-top: 2rem;
 }
 
@@ -31,9 +37,6 @@ ul > li {
     padding: 0 1rem;
 }
 
-.add-items {
-    margin-bottom: 2rem;
-}
 
 /* ----- desktop ----- */
 
