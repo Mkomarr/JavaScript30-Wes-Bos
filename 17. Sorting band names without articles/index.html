@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sorting band names without articles</title>
+</head>
+<style>
+
+</style>
+<body>
+    <ul id="bands"></ul>
+
+    <script>
+        const list = document.getElementById('bands');
+        const bands = ['The Plot n You', 'The Devil wears Prada', 'Norma Jean', 'The Bled', 'Say Anything', 'The midway State', 'We came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skulit Drive', 'Anywhere But here', 'An old Dog'];
+
+        function strip(bandName) {
+            return bandName.replace(/^(a |the |an)/i, '').trim();
+        }
+
+        const sortedBands = bands.sort((a, b) => strip(a) > strip(b) ? 1: -1);
+        list.innerHTML = sortedBands
+            .map(band => `<li>${band}</li>`) //zwraca array z wartościami po przecinku
+            .join(''); //join likwiduje przecinki
+    </script>
+</body>
+</html>
